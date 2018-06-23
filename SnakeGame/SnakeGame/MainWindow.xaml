@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnakeGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        KeyDown="Window_KeyDown"
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock x:Name="GamePlayTextBlock" Margin="60"
+                   FontSize="20"
+                   Visibility="Hidden"
+                   HorizontalAlignment="Center">
+            Press direction (up, down, left or right) key to start the game.
+        </TextBlock>
+        <TextBlock x:Name="NumberOfMealsTextBlock"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="120"
+                   FontWeight="Bold"
+                   Foreground="Gray"
+                   Text="0"
+                   Visibility="Hidden">
+
+        </TextBlock>
     </Grid>
 </Window>
