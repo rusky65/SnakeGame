@@ -10,11 +10,18 @@ namespace SnakeGame.Model {
     /// It contains the logic of game
     /// </summary>
     class Arena {
+        private Snake snake;
         private MainWindow View;
 
         public Arena(MainWindow view) {
             this.View = view;
             View.GamePlayTextBlockBorder.Visibility = System.Windows.Visibility.Visible;
+
+            snake = new Snake(10, 10);
+
+            var cell = View.ArenaGrid.Children[10 * 20 + 10];
+            var image = (FontAwesome.WPF.ImageAwesome)cell;
+            image.Icon = FontAwesome.WPF.FontAwesomeIcon.Circle;
         }
 
         internal void KeyDown(KeyEventArgs e) {
