@@ -14,7 +14,7 @@ namespace SnakeGame.Model {
 
         public Arena(MainWindow view) {
             this.View = view;
-            View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Visible;
+            View.GamePlayTextBlockBorder.Visibility = System.Windows.Visibility.Visible;
         }
 
         internal void KeyDown(KeyEventArgs e) {
@@ -23,8 +23,9 @@ namespace SnakeGame.Model {
                 case Key.Up:
                 case Key.Right:
                 case Key.Down:
-                    View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Hidden;
+                    View.GamePlayTextBlockBorder.Visibility = System.Windows.Visibility.Hidden;
                     View.NumberOfMealsTextBlock.Visibility = System.Windows.Visibility.Visible;
+                    View.ArenaGrid.Visibility = System.Windows.Visibility.Visible;
                     Console.WriteLine(e.Key);
                     break;
             }

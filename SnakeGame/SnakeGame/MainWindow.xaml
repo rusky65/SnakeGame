@@ -9,12 +9,6 @@
         KeyDown="Window_KeyDown"
         Title="MainWindow" Height="450" Width="450">
     <Grid>
-        <TextBlock x:Name="GamePlayTextBlock" Margin="60"
-                   FontSize="20"
-                   Visibility="Hidden"
-                   HorizontalAlignment="Center">
-            Press direction (up, down, left or right) key to start the game.
-        </TextBlock>
         <TextBlock x:Name="NumberOfMealsTextBlock"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -25,7 +19,8 @@
                    Visibility="Hidden">
 
         </TextBlock>
-        <Grid x:Name="ArenaGrid">
+        
+        <Grid x:Name="ArenaGrid" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -511,5 +506,20 @@
             <fa:ImageAwesome Icon="SquareOutline" Grid.Row="19" Grid.Column="19"/>
             <fa:ImageAwesome Icon="SquareOutline" Grid.Row="20" Grid.Column="19"/>
         </Grid>
+        
+        <Border x:Name="GamePlayTextBlockBorder" 
+                Background="Aqua"
+                Opacity="1"
+                VerticalAlignment="Top"
+                Margin="60"
+                Visibility="Hidden">
+            <TextBlock x:Name="GamePlayTextBlock" 
+                   FontSize="20"
+                   Padding="20"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">
+            Press direction (up, down, left or right) key to start the game.
+            </TextBlock>
+        </Border>
     </Grid>
 </Window>
