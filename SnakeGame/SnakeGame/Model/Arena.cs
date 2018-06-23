@@ -16,6 +16,8 @@ namespace SnakeGame.Model {
         private DispatcherTimer pendulum;
         private Snake snake;
         private MainWindow View;
+        private DispatcherTimer gameClock;
+        private TimeSpan playTime;
 
         public Arena(MainWindow view) {
             this.View = view;
@@ -25,8 +27,16 @@ namespace SnakeGame.Model {
 
             pendulum = new DispatcherTimer(TimeSpan.FromMilliseconds(500),DispatcherPriority.Normal, ItsTimeToDisplay, Application.Current.Dispatcher);
 
+            gameClock = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Normal, ClockTick, Application.Current.Dispatcher);
+            gameClock.Stop();
+
             isStarted = false;
 
+        }
+
+        private void ClockTick(object sender, EventArgs e) {
+            playTime = playTime + TimeSpan.FromSeconds(1);
+            View.LabelPlayTime.Content = $"{playTime.Minutes:00}:{playTime.Seconds:00}";
         }
 
         private void ItsTimeToDisplay(object sender, EventArgs e) {
@@ -102,6 +112,7 @@ namespace SnakeGame.Model {
             View.NumberOfMealsTextBlock.Visibility = System.Windows.Visibility.Visible;
             View.ArenaGrid.Visibility = System.Windows.Visibility.Visible;
             isStarted = true;
+            gameClock.Start();
         }
     }
 }

@@ -9,6 +9,10 @@
         KeyDown="Window_KeyDown"
         Title="MainWindow" Height="450" Width="450">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
         <TextBlock x:Name="NumberOfMealsTextBlock"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -491,7 +495,7 @@
                 Opacity="1"
                 VerticalAlignment="Top"
                 Margin="60"
-                Visibility="Hidden">
+                Visibility="Visible">
             <TextBlock x:Name="GamePlayTextBlock" 
                    FontSize="20"
                    Padding="20"
@@ -500,5 +504,12 @@
             Press direction (up, down, left or right) key to start the game.
             </TextBlock>
         </Border>
+
+        <WrapPanel Grid.Row="1"
+                   Margin="1"
+                   HorizontalAlignment="Right">
+            <Label Content="Time"/>
+            <Label x:Name="LabelPlayTime" Content="00:00"/>
+        </WrapPanel>
     </Grid>
 </Window>
