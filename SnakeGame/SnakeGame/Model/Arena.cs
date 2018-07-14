@@ -16,6 +16,7 @@ namespace SnakeGame.Model {
     /// </summary>
     class Arena {
         private bool isStarted;
+        private bool isReStarted;
         private DispatcherTimer pendulum;
         private DispatcherTimer gameClock;
         private TimeSpan playTime;
@@ -63,7 +64,7 @@ namespace SnakeGame.Model {
         // Resolves soma task for snake to go ahead.
         private void ItsTimeToDisplay(object sender, EventArgs e) {
 
-            if (!isStarted) {
+            if (!isStarted || isReStarted) {
                 return;
             }
 
@@ -272,30 +273,42 @@ namespace SnakeGame.Model {
         }
 
         internal void KeyDown(KeyEventArgs e) {
+            Console.WriteLine(e.Key);
+
             switch (e.Key) {
+                case Key.Multiply:
+                    if (!isStarted && !isReStarted) {
+                        isReStarted = true;
+                        ClearTheScreen();
+                        StartingState();
+                    }
+                    break;
                 case Key.Left:
                 case Key.Up:
                 case Key.Right:
                 case Key.Down:
-                    if (!isStarted) {
+                    if (!isStarted && isReStarted) {
                         StartNewGame();
                     }
 
-                    switch (e.Key) {
-                        case Key.Left:
-                            snake.HeadDirection = SnakeHeadDirectionEnum.Left;
-                            break;
-                        case Key.Up:
-                            snake.HeadDirection = SnakeHeadDirectionEnum.Up;
-                            break;
-                        case Key.Right:
-                            snake.HeadDirection = SnakeHeadDirectionEnum.Right;
-                            break;
-                        case Key.Down:
-                            snake.HeadDirection = SnakeHeadDirectionEnum.Down;
-                            break;
+                    if (isStarted) {
+                        switch (e.Key) {
+                            case Key.Left:
+                                snake.HeadDirection = SnakeHeadDirectionEnum.Left;
+                                break;
+                            case Key.Up:
+                                snake.HeadDirection = SnakeHeadDirectionEnum.Up;
+                                break;
+                            case Key.Right:
+                                snake.HeadDirection = SnakeHeadDirectionEnum.Right;
+                                break;
+                            case Key.Down:
+                                snake.HeadDirection = SnakeHeadDirectionEnum.Down;
+                                break;
+                        }
                     }
-                    Console.WriteLine(e.Key);
+
+                    //Console.WriteLine(e.Key);
                     break;
             }
         }
@@ -305,6 +318,7 @@ namespace SnakeGame.Model {
             View.NumberOfMealsTextBlock.Visibility = System.Windows.Visibility.Visible;
             View.ArenaGrid.Visibility = System.Windows.Visibility.Visible;
             isStarted = true;
+            isReStarted = false;
             gameClock.Start();
 
             GetNewFood();
@@ -314,23 +328,28 @@ namespace SnakeGame.Model {
             Console.WriteLine("End of the Game");
             pendulum.Stop();
             gameClock.Stop();
-            playTime = TimeSpan.Zero;
-            View.LabelPlayTime.Content = $"{playTime.Minutes:00}:{playTime.Seconds:00}";
 
-            ClearTheScreen();
-            StartingState();
+            isStarted = false;
+
+            View.LabelPlayTime.Content = $"{playTime.Minutes:00}:{playTime.Seconds:00}";
+            View.LabelPlayTimeEnd.Content = $"{playTime.Minutes:00}:{playTime.Seconds:00}";
+            View.NumberOfMealsLabel.Content = foodsHaveEatenCount.ToString();
+            View.GameEndResultsTextBlockBorder.Visibility = Visibility.Visible;
+
+            //            StartingState();
         }
 
         private void StartingState() {
+            View.GameEndResultsTextBlockBorder.Visibility = Visibility.Hidden;
             View.GamePlayTextBlockBorder.Visibility = System.Windows.Visibility.Visible;
             snake = new Snake(10, 10);
 
-            isStarted = false;
 
             Random = new Random();
             foods = new Foods();
 
             foodsHaveEatenCount = 0;
+            isReStarted = true;
             StartPendulum();
         }
 
@@ -349,6 +368,11 @@ namespace SnakeGame.Model {
                 CanvasPosition foodPosition = foods.FoodPositions[i];
                 ShowEmptyArenaPosition(foodPosition.RowPosition, foodPosition.ColumnPosition, foodPosition.Paint);
             }
+
+            // Reset the displays
+            playTime = TimeSpan.Zero;
+            View.LabelPlayTime.Content = $"{playTime.Minutes:00}:{playTime.Seconds:00}";
+            View.NumberOfMealsTextBlock.Text = "0";
 
             // Set the snake to null
             snake = null;

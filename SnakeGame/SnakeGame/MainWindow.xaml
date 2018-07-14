@@ -525,6 +525,57 @@
             Press direction (up, down, left or right) key to start the game.
                 </TextBlock>
             </Border>
+
+            <Border x:Name="GameEndResultsTextBlockBorder" 
+                Background="Aqua"
+                Opacity="1"
+                VerticalAlignment="Top"
+                Margin="60"
+                Visibility="Hidden">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="GameEndResultsTextBlock"
+                               Grid.Row="0" Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                           FontSize="20"
+                           Padding="20"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap">
+                        End of the game.
+                    </TextBlock>
+                    
+                    <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Time:"/>
+                    <Label x:Name="LabelPlayTimeEnd"
+                           Grid.Row="1" Grid.Column="1"
+                           Content="00:00"/>
+          
+                    <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Content="Eaten foods number"/>
+                    <Label x:Name="NumberOfMealsLabel" 
+                           Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"  Content="0"/>
+
+                    <TextBlock x:Name="PressKeyForRestartTextBlock"
+                               Grid.Row="3" Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                           FontSize="16"
+                           Padding="10"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap">
+                        Press key "*" (asterisk) for new game.
+                    </TextBlock>
+
+                </Grid>
+             </Border>
         </Grid>
     </Grid>
 
